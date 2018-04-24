@@ -12,7 +12,7 @@ $--color-transition-base: color .2s cubic-bezier(.645,.045,.355,1) !default;
 /* Colors
 -------------------------- */
 $--color-white: #fff !default;
-$--color-black: #000 !default;
+$--color-black: #444 !default;
 
 $--color-primary: #32A8EE !default;
 $--color-primary-light-1: mix($--color-white, $--color-primary, 10%) !default; /* 53a8ff */
@@ -41,8 +41,8 @@ $--color-danger-lighter: mix($--color-white, $--color-danger, 90%) !default;
 $--color-info-lighter: mix($--color-white, $--color-info, 90%) !default;
 
 $--color-text-primary: #444 !default;
-$--color-text-regular: #606266 !default;
-$--color-text-secondary: #888 !default;
+$--color-text-regular: #888 !default;
+$--color-text-secondary: #bbbec4 !default;
 $--color-text-placeholder: #bbbec4 !default;
 
 /* Link

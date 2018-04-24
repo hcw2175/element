@@ -94,7 +94,6 @@ const TableStore = function(table, initialState = {}) {
     fixedLeafColumnsLength: 0,
     rightFixedLeafColumnsLength: 0,
     isComplex: false,
-    _data: null,
     filteredData: null,
     data: null,
     sortingColumn: null,
@@ -108,7 +107,8 @@ const TableStore = function(table, initialState = {}) {
     hoverRow: null,
     filters: {},
     expandRows: [],
-    defaultExpandAll: false
+    defaultExpandAll: false,
+    selectOnIndeterminate: false
   };
 
   for (let prop in initialState) {
@@ -136,15 +136,6 @@ TableStore.prototype.mutations = {
 
     states.filteredData = data;
     states.data = sortData((data || []), states);
-
-    // states.data.forEach((item) => {
-    //   if (!item.$extra) {
-    //     Object.defineProperty(item, '$extra', {
-    //       value: {},
-    //       enumerable: false
-    //     });
-    //   }
-    // });
 
     this.updateCurrentRow();
 
@@ -252,18 +243,26 @@ TableStore.prototype.mutations = {
       states.reserveSelection = column.reserveSelection;
     }
 
-    this.updateColumns(); // hack for dynamics insert column
-    this.scheduleLayout();
+    if (this.table.$ready) {
+      this.updateColumns(); // hack for dynamics insert column
+      this.scheduleLayout();
+    }
   },
 
-  removeColumn(states, column) {
-    let _columns = states._columns;
-    if (_columns) {
-      _columns.splice(_columns.indexOf(column), 1);
+  removeColumn(states, column, parent) {
+    let array = states._columns;
+    if (parent) {
+      array = parent.children;
+      if (!array) array = parent.children = [];
+    }
+    if (array) {
+      array.splice(array.indexOf(column), 1);
     }
 
-    this.updateColumns(); // hack for dynamics remove column
-    this.scheduleLayout();
+    if (this.table.$ready) {
+      this.updateColumns(); // hack for dynamics remove column
+      this.scheduleLayout();
+    }
   },
 
   setHoverRow(states, row) {
@@ -285,7 +284,7 @@ TableStore.prototype.mutations = {
 
     if (changed) {
       const table = this.table;
-      table.$emit('selection-change', selection);
+      table.$emit('selection-change', selection ? selection.slice() : []);
       table.$emit('select', selection, row);
     }
 
@@ -294,8 +293,13 @@ TableStore.prototype.mutations = {
 
   toggleAllSelection: debounce(10, function(states) {
     const data = states.data || [];
-    const value = !states.isAllSelected;
+    if (data.length === 0) return;
     const selection = this.states.selection;
+    // when only some rows are selected (but not all), select or deselect all of them
+    // depending on the value of selectOnIndeterminate
+    const value = states.selectOnIndeterminate
+      ? !states.isAllSelected
+      : !(states.isAllSelected || selection.length);
     let selectionChanged = false;
 
     data.forEach((item, index) => {
@@ -312,7 +316,7 @@ TableStore.prototype.mutations = {
 
     const table = this.table;
     if (selectionChanged) {
-      table.$emit('selection-change', selection);
+      table.$emit('selection-change', selection ? selection.slice() : []);
     }
     table.$emit('select-all', selection);
     states.isAllSelected = value;
@@ -365,9 +369,11 @@ TableStore.prototype.clearSelection = function() {
   const states = this.states;
   states.isAllSelected = false;
   const oldSelection = states.selection;
-  states.selection = [];
+  if (states.selection.length) {
+    states.selection = [];
+  }
   if (oldSelection.length > 0) {
-    this.table.$emit('selection-change', states.selection);
+    this.table.$emit('selection-change', states.selection ? states.selection.slice() : []);
   }
 };
 
@@ -390,7 +396,7 @@ TableStore.prototype.setExpandRowKeys = function(rowKeys) {
 TableStore.prototype.toggleRowSelection = function(row, selected) {
   const changed = toggleRowSelection(this.states, row, selected);
   if (changed) {
-    this.table.$emit('selection-change', this.states.selection);
+    this.table.$emit('selection-change', this.states.selection ? this.states.selection.slice() : []);
   }
 };
 
@@ -398,7 +404,17 @@ TableStore.prototype.toggleRowExpansion = function(row, expanded) {
   const changed = toggleRowExpansion(this.states, row, expanded);
   if (changed) {
     this.table.$emit('expand-change', row, this.states.expandRows);
+    this.scheduleLayout();
   }
+};
+
+TableStore.prototype.isRowExpanded = function(row) {
+  const { expandRows = [], rowKey } = this.states;
+  if (rowKey) {
+    const expandMap = getKeysMap(expandRows, rowKey);
+    return !!expandMap[getRowIdentity(row, rowKey)];
+  }
+  return expandRows.indexOf(row) !== -1;
 };
 
 TableStore.prototype.cleanSelection = function() {
@@ -426,7 +442,7 @@ TableStore.prototype.cleanSelection = function() {
   });
 
   if (deleted.length) {
-    this.table.$emit('selection-change', selection);
+    this.table.$emit('selection-change', selection ? selection.slice() : []);
   }
 };
 
@@ -492,23 +508,14 @@ TableStore.prototype.updateAllSelected = function() {
   let selectedCount = 0;
   for (let i = 0, j = data.length; i < j; i++) {
     const item = data[i];
-    if (selectable) {
-      const isRowSelectable = selectable.call(null, item, i);
-      if (isRowSelectable) {
-        if (!isSelected(item)) {
-          isAllSelected = false;
-          break;
-        } else {
-          selectedCount++;
-        }
-      }
-    } else {
-      if (!isSelected(item)) {
+    const isRowSelectable = selectable && selectable.call(null, item, i);
+    if (!isSelected(item)) {
+      if (!selectable || isRowSelectable) {
         isAllSelected = false;
         break;
-      } else {
-        selectedCount++;
       }
+    } else {
+      selectedCount++;
     }
   }
 
@@ -517,8 +524,11 @@ TableStore.prototype.updateAllSelected = function() {
   states.isAllSelected = isAllSelected;
 };
 
-TableStore.prototype.scheduleLayout = function() {
-  this.table.debouncedLayout();
+TableStore.prototype.scheduleLayout = function(updateColumns) {
+  if (updateColumns) {
+    this.updateColumns();
+  }
+  this.table.debouncedUpdateLayout();
 };
 
 TableStore.prototype.setCurrentRowKey = function(key) {

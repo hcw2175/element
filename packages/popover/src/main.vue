@@ -1,6 +1,9 @@
 <template>
   <span>
-    <transition :name="transition" @after-leave="doDestroy">
+    <transition
+      :name="transition"
+      @after-enter="handleAfterEnter"
+      @after-leave="handleAfterLeave">
       <div
         class="el-popover el-popper"
         :class="[popperClass, content && 'el-popover--plain']"
@@ -48,6 +51,10 @@ export default {
     visibleArrow: {
       default: true
     },
+    arrowOffset: {
+      type: Number,
+      default: 0
+    },
     transition: {
       type: String,
       default: 'fade-in-linear'
@@ -80,7 +87,13 @@ export default {
       popper.setAttribute('tabindex', 0);
 
       if (this.trigger !== 'click') {
-        on(reference, 'focusin', this.handleFocus);
+        on(reference, 'focusin', () => {
+          this.handleFocus();
+          const instance = reference.__vue__;
+          if (instance && instance.focus) {
+            instance.focus();
+          }
+        });
         on(popper, 'focusin', this.handleFocus);
         on(reference, 'focusout', this.handleBlur);
         on(popper, 'focusout', this.handleBlur);
@@ -180,6 +193,13 @@ export default {
         !popper ||
         popper.contains(e.target)) return;
       this.showPopper = false;
+    },
+    handleAfterEnter() {
+      this.$emit('after-enter');
+    },
+    handleAfterLeave() {
+      this.$emit('after-leave');
+      this.doDestroy();
     }
   },
 

@@ -1,47 +1,45 @@
 <template>
-  <div class="el-input-number"
+  <div
+    @dragstart.prevent
     :class="[
+      'el-input-number',
       inputNumberSize ? 'el-input-number--' + inputNumberSize : '',
-      { 'is-disabled': disabled },
+      { 'is-disabled': inputNumberDisabled },
       { 'is-without-controls': !controls },
       { 'is-controls-right': controlsAtRight }
-    ]"
-  >
+    ]">
     <span
-      v-if="controls"
       class="el-input-number__decrease"
-      :class="{'is-disabled': minDisabled}"
-      v-repeat-click="decrease"
-      @keydown.enter="decrease"
       role="button"
-    >
+      v-if="controls"
+      v-repeat-click="decrease"
+      :class="{'is-disabled': minDisabled}"
+      @keydown.enter="decrease">
       <i :class="`el-icon-${controlsAtRight ? 'arrow-down' : 'minus'}`"></i>
     </span>
     <span
-      v-if="controls"
       class="el-input-number__increase"
-      :class="{'is-disabled': maxDisabled}"
-      v-repeat-click="increase"
-      @keydown.enter="increase"
       role="button"
-    >
+      v-if="controls"
+      v-repeat-click="increase"
+      :class="{'is-disabled': maxDisabled}"
+      @keydown.enter="increase">
       <i :class="`el-icon-${controlsAtRight ? 'arrow-up' : 'plus'}`"></i>
     </span>
     <el-input
+      ref="input"
       :value="currentValue"
-      @keydown.up.native.prevent="increase"
-      @keydown.down.native.prevent="decrease"
-      @blur="handleBlur"
-      @focus="handleFocus"
-      @change="handleInputChange"
-      :disabled="disabled"
+      :disabled="inputNumberDisabled"
       :size="inputNumberSize"
       :max="max"
       :min="min"
       :name="name"
-      ref="input"
       :label="label"
-    >
+      @keydown.up.native.prevent="increase"
+      @keydown.down.native.prevent="decrease"
+      @blur="handleBlur"
+      @focus="handleFocus"
+      @change="handleInputChange">
       <template slot="prepend" v-if="$slots.prepend">
         <slot name="prepend"></slot>
       </template>
@@ -60,6 +58,9 @@
     name: 'ElInputNumber',
     mixins: [Focus('input')],
     inject: {
+      elForm: {
+        default: ''
+      },
       elFormItem: {
         default: ''
       }
@@ -83,9 +84,7 @@
         type: Number,
         default: -Infinity
       },
-      value: {
-        default: 0
-      },
+      value: {},
       disabled: Boolean,
       size: String,
       controls: {
@@ -108,8 +107,8 @@
       value: {
         immediate: true,
         handler(value) {
-          let newVal = Number(value);
-          if (isNaN(newVal)) return;
+          let newVal = value === undefined ? value : Number(value);
+          if (newVal !== undefined && isNaN(newVal)) return;
           if (newVal >= this.max) newVal = this.max;
           if (newVal <= this.min) newVal = this.min;
           this.currentValue = newVal;
@@ -136,6 +135,9 @@
       },
       inputNumberSize() {
         return this.size || this._elFormItemSize || (this.$ELEMENT || {}).size;
+      },
+      inputNumberDisabled() {
+        return this.disabled || (this.elForm || {}).disabled;
       }
     },
     methods: {
@@ -144,6 +146,7 @@
         return parseFloat(parseFloat(Number(num).toFixed(precision)));
       },
       getPrecision(value) {
+        if (value === undefined) return 0;
         const valueString = value.toString();
         const dotPosition = valueString.indexOf('.');
         let precision = 0;
@@ -153,31 +156,29 @@
         return precision;
       },
       _increase(val, step) {
-        if (typeof val !== 'number') return this.currentValue;
+        if (typeof val !== 'number' && val !== undefined) return this.currentValue;
 
         const precisionFactor = Math.pow(10, this.precision);
-
+        // Solve the accuracy problem of JS decimal calculation by converting the value to integer.
         return this.toPrecision((precisionFactor * val + precisionFactor * step) / precisionFactor);
       },
       _decrease(val, step) {
-        if (typeof val !== 'number') return this.currentValue;
+        if (typeof val !== 'number' && val !== undefined) return this.currentValue;
 
         const precisionFactor = Math.pow(10, this.precision);
 
         return this.toPrecision((precisionFactor * val - precisionFactor * step) / precisionFactor);
       },
       increase() {
-        if (this.disabled || this.maxDisabled) return;
+        if (this.inputNumberDisabled || this.maxDisabled) return;
         const value = this.value || 0;
         const newVal = this._increase(value, this.step);
-        if (newVal > this.max) return;
         this.setCurrentValue(newVal);
       },
       decrease() {
-        if (this.disabled || this.minDisabled) return;
+        if (this.inputNumberDisabled || this.minDisabled) return;
         const value = this.value || 0;
         const newVal = this._decrease(value, this.step);
-        if (newVal < this.min) return;
         this.setCurrentValue(newVal);
       },
       handleBlur(event) {
@@ -195,13 +196,13 @@
           this.$refs.input.setCurrentValue(this.currentValue);
           return;
         }
-        this.$emit('change', newVal, oldVal);
         this.$emit('input', newVal);
+        this.$emit('change', newVal, oldVal);
         this.currentValue = newVal;
       },
       handleInputChange(value) {
-        const newVal = Number(value);
-        if (!isNaN(newVal)) {
+        const newVal = value === '' ? undefined : Number(value);
+        if (!isNaN(newVal) || value === '') {
           this.setCurrentValue(newVal);
         }
       }
@@ -212,7 +213,7 @@
       innerInput.setAttribute('aria-valuemax', this.max);
       innerInput.setAttribute('aria-valuemin', this.min);
       innerInput.setAttribute('aria-valuenow', this.currentValue);
-      innerInput.setAttribute('aria-disabled', this.disabled);
+      innerInput.setAttribute('aria-disabled', this.inputNumberDisabled);
     },
     updated() {
       let innerInput = this.$refs.input.$refs.input;

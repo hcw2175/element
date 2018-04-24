@@ -90,6 +90,15 @@ describe('Table', () => {
       }, DELAY);
     });
 
+    it('height as string', done => {
+      const vm = createTable('height="100pt"');
+      setTimeout(_ => {
+        expect(vm.$el.style.height).to.equal('100pt');
+        destroyVM(vm);
+        done();
+      }, DELAY);
+    });
+
     it('maxHeight', done => {
       const vm = createTable('max-height="134"');
       setTimeout(_ => {
@@ -222,6 +231,47 @@ describe('Table', () => {
             destroyVM(vm);
             done();
           }, DELAY);
+        }, DELAY);
+      }, DELAY);
+    });
+
+    it('select-on-indeterminate', done => {
+      const vm = createVue({
+        template: `
+          <el-table :data="testData" @selection-change="change" :select-on-indeterminate="false" ref="table">
+            <el-table-column type="selection" />
+            <el-table-column prop="name" label="name" />
+            <el-table-column prop="release" label="release" />
+            <el-table-column prop="director" label="director" />
+            <el-table-column prop="runtime" label="runtime" />
+          </el-table>
+        `,
+
+        created() {
+          this.testData = getTestData();
+        },
+
+        mounted() {
+          this.$refs.table.toggleRowSelection(this.testData[0]);
+        },
+
+        data() {
+          return { selected: [] };
+        },
+
+        methods: {
+          change(val) {
+            this.selected = val;
+          }
+        }
+      }, true);
+
+      setTimeout(_ => {
+        vm.$el.querySelector('.el-checkbox').click();
+        setTimeout(_ => {
+          expect(vm.selected).to.length(0);
+          destroyVM(vm);
+          done();
         }, DELAY);
       }, DELAY);
     });

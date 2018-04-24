@@ -89,9 +89,9 @@
     vertical-align: middle;
     float: left;
     font-size: 14px;
-    color: $--color-text-regular;
+    color: $--color-text-primary;
     line-height: 40px;
-    padding: 0 12px 0 0;
+    padding: 0 15px 0 0;
     box-sizing: border-box;
   }
   @include e(content) {
@@ -148,12 +148,12 @@
     }
   }
   @include when(success) {
-    & .el-input__inner,
+    /*& .el-input__inner,
     & .el-textarea__inner {
       &, &:focus {
-        border-color: $--color-success;
+        border-color: $--input-focus-border;;
       }
-    }
+    }*/
     & .el-input-group__append,
     & .el-input-group__prepend {
       & .el-input__inner {

@@ -14,7 +14,7 @@ $--color-transition-base: color .2s cubic-bezier(.645,.045,.355,1) !default;
 $--color-white: #fff !default;
 $--color-black: #444 !default;
 
-$--color-primary: #32A8EE !default;
+$--color-primary: #009FF2 !default;
 $--color-primary-light-1: mix($--color-white, $--color-primary, 10%) !default; /* 53a8ff */
 $--color-primary-light-2: mix($--color-white, $--color-primary, 20%) !default; /* 66b1ff */
 $--color-primary-light-3: mix($--color-white, $--color-primary, 30%) !default; /* 79bbff */
@@ -25,10 +25,10 @@ $--color-primary-light-7: mix($--color-white, $--color-primary, 70%) !default; /
 $--color-primary-light-8: mix($--color-white, $--color-primary, 80%) !default; /* d9ecff */
 $--color-primary-light-9: mix($--color-white, $--color-primary, 90%) !default; /* ecf5ff */
 
-$--color-success: #5ece0f !default;
-$--color-warning: #ffc600 !default;
-$--color-danger: #f56c6c !default;
-$--color-info: #00cdb7 !default;
+$--color-success: #66dd60 !default;
+$--color-warning: #ffc64b !default;
+$--color-danger: #e34551 !default;
+$--color-info: #00d9cc !default;
 
 $--color-success-light: mix($--color-white, $--color-success, 80%) !default;
 $--color-warning-light: mix($--color-white, $--color-warning, 80%) !default;
@@ -58,8 +58,8 @@ $--background-color-base: #f9f9f9 !default;
 -------------------------- */
 $--border-width-base: 1px !default;
 $--border-style-base: solid !default;
-$--border-color-base: #dcdfe6 !default;
-$--border-color-light: #e4e7ed !default;
+$--border-color-base: #ddd !default;
+$--border-color-light: #ced4da !default;
 $--border-color-lighter: #ebeef5 !default;
 $--border-color-extra-light: #f2f6fc !default;
 $--border-color-hover: $--color-text-placeholder !default;
@@ -82,7 +82,7 @@ $--fill-base: $--color-white !default;
 -------------------------- */
 $--font-path: 'fonts' !default;
 $--font-size-base: 14px !default;
-$--font-size-small: 13px !default;
+$--font-size-small: 12px !default;
 $--font-size-large: 18px !default;
 $--font-color-disabled-base: #bbb !default;
 $--font-weight-primary: 500 !default;
@@ -314,7 +314,7 @@ $--notification-danger-color: $--color-danger !default;
 /* Input
 -------------------------- */
 $--input-font-size: $--font-size-base !default;
-$--input-color: $--color-text-regular !default;
+$--input-color: $--color-text-primary !default;
 $--input-width: 140px !default;
 $--input-height: 40px !default;
 $--input-border: $--border-base !default;
@@ -503,7 +503,7 @@ $--pagination-hover-color: $--color-white !default;
 -------------------------- */
 $--popover-fill: $--color-white !default;
 $--popover-font-size: $--font-size-base !default;
-$--popover-border-color: $--border-color-lighter !default;
+$--popover-border-color: $--border-color-base !default;
 $--popover-arrow-size: 6px !default;
 $--popover-padding: 12px !default;
 $--popover-padding-large: 18px 20px !default;

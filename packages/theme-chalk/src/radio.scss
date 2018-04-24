@@ -4,8 +4,9 @@
 @import "common/var";
 
 @include b(radio) {
-  color: $--radio-color;
-  font-weight: $--radio-font-weight;
+  /*color: $--radio-color;*/
+  color: $--color-text-primary;
+  //font-weight: $--radio-font-weight;
   line-height: 1;
   position: relative;
   cursor: pointer;
@@ -80,7 +81,7 @@
   }
 
   & + .el-radio {
-    margin-left: 30px;
+    margin-left: 20px;
   }
 
   @include e(input) {
@@ -193,6 +194,6 @@
 
   @include e(label) {
     font-size: $--radio-font-size;
-    padding-left: 10px;
+    padding-left: 5px;
   }
 }

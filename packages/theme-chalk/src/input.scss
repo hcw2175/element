@@ -15,7 +15,7 @@
     box-sizing: border-box;
     width: 100%;
     font-size: inherit;
-    color: $--input-color;
+    color: $--color-text-primary;
     background-color: $--input-fill;
     background-image: none;
     border: $--input-border;
@@ -33,6 +33,7 @@
     &:focus {
       outline: none;
       border-color: $--input-focus-border;
+      box-shadow: 0 0 0 0.2rem rgba(50,168,238,.25);
     }
   }
 
@@ -76,7 +77,7 @@
     border-radius: $--input-border-radius;
     border: $--input-border;
     box-sizing: border-box;
-    color: $--input-color;
+    color: $--color-text-primary;
     display: inline-block;
     font-size: inherit;
     height: $--input-height;
@@ -104,7 +105,7 @@
   @include e(suffix) {
     position: absolute;
     height: 100%;
-    right: 5px;
+    right: 10px;
     top: 0;
     text-align: center;
     color: $--input-icon-color;
@@ -170,6 +171,10 @@
     }
   }
 
+  @include when(focused) {
+    box-shadow: 0 0 0 0.2rem rgba(50,168,238,.25);
+  }
+
   @include m(suffix) {
     .el-input__inner {
       padding-right: 30px;
@@ -229,22 +234,25 @@
   > .el-input__inner {
     vertical-align: middle;
     display: table-cell;
+    box-shadow: none;
   }
 
   @include e((append, prepend)) {
     background-color: $--background-color-base;
-    color: $--color-info;
+    color: $--color-text-secondary;
     vertical-align: middle;
     display: table-cell;
     position: relative;
     border: $--border-base;
     border-radius: $--input-border-radius;
-    padding: 0 20px;
+    padding: 0 10px;
     width: 1px;
     white-space: nowrap;
 
     &:focus {
       outline: none;
+      border-color: $--input-focus-border;
+      box-shadow: 0 0 0 0.2rem rgba(50,168,238,.25);
     }
 
     .el-select,

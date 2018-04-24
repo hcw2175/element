@@ -3,6 +3,7 @@
     type === 'textarea' ? 'el-textarea' : 'el-input',
     inputSize ? 'el-input--' + inputSize : '',
     {
+      'is-focused': focused,
       'is-disabled': inputDisabled,
       'el-input-group': $slots.prepend || $slots.append,
       'el-input-group--append': $slots.append,

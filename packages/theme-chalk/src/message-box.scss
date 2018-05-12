@@ -74,9 +74,11 @@
 
   @include e(content) {
     position: relative;
-    padding: 10px $--msgbox-padding-primary;
+    padding: 15px;
     color: $--msgbox-content-color;
     font-size: $--msgbox-content-font-size;
+    margin-top: 10px;
+    text-align: center;
   }
 
   @include e(input) {
@@ -91,20 +93,21 @@
   }
 
   @include e(status) {
-    position: absolute;
+    /*position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%);*/
     font-size: 24px !important;
+    margin-bottom: 10px;
 
     &::before {
       // 防止图标切割
       padding-left: 1px;
     }
 
-    + .el-message-box__message {
+    /*+ .el-message-box__message {
       padding-left: 36px;
       padding-right: 12px;
-    }
+    }*/
 
     &.el-icon-success {
       color: $--msgbox-success-color;
@@ -154,11 +157,11 @@
 
   // centerAlign 布局
   @include m(center) {
-    padding-bottom: 30px;
+    //padding-bottom: 30px;
 
-    @include e(header) {
+    /*@include e(header) {
       padding-top: 30px;
-    }
+    }*/
 
     @include e(title) {
       position: relative;
@@ -188,6 +191,7 @@
 
       padding-left: $padding-horizontal;
       padding-right: $padding-horizontal;
+      margin: 20px;
     }
   }
 }

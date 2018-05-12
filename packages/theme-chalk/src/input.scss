@@ -100,6 +100,10 @@
       border-color: $--input-focus-border;
       box-shadow: 0 0 0 0.2rem rgba(50,168,238,.25);
     }
+
+    @include when(invalid) {
+      box-shadow: none;
+    }
   }
 
   @include e(suffix) {

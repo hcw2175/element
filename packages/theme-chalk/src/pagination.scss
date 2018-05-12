@@ -7,13 +7,13 @@
   white-space: nowrap;
   padding: 2px 5px;
   color: $--pagination-color;
-  font-weight: bold;
+  /*font-weight: bold;*/
   @include utils-clearfix;
 
   span:not([class*=suffix]),
   button {
     display: inline-block;
-    font-size: $--pagination-font-size;
+    font-size: 12px;
     min-width: $--pagination-button-width;
     height: $--pagination-button-height;
     line-height: $--pagination-button-height;
@@ -136,7 +136,7 @@
     color: $--color-text-regular;
 
     .el-input .el-input__inner {
-      font-size: $--pagination-font-size;
+      font-size: 12px;
       padding-left: 8px;
 
       &:hover {
@@ -253,7 +253,7 @@
     background: $--pagination-fill;
     vertical-align: top;
     display: inline-block;
-    font-size: $--pagination-font-size;
+    font-size: 12px;
     min-width: $--pagination-button-width;
     height: $--pagination-button-height;
     line-height: $--pagination-button-height;

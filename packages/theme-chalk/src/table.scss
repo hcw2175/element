@@ -107,7 +107,7 @@
   }
 
   th, td {
-    padding: 12px 0;
+    padding: 8px 0;
     min-width: 0;
     box-sizing: border-box;
     text-overflow: ellipsis;
@@ -139,18 +139,21 @@
       }
     }
   }
+  th{
+    padding: 10px 0;
+  }
 
-  @include m(medium) {
+  /*@include m(medium) {
     th, td {
       padding: 10px 0;
     }
-  }
+  }*/
 
   @include m(small) {
     font-size: 12px;
-    th, td {
+    /*th, td {
       padding: 8px 0;
-    }
+    }*/
   }
 
   @include m(mini) {

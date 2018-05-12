@@ -273,11 +273,13 @@
       color: inherit;
       border-top: 0;
       border-bottom: 0;
+      box-shadow: none;
     }
 
     .el-button,
     .el-input {
       font-size: inherit;
+      box-shadow: none;
     }
   }
 

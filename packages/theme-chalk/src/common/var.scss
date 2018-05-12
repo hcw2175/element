@@ -238,7 +238,7 @@ $--select-dropdown-empty-color: #999 !default;
 $--select-dropdown-max-height: 274px !default;
 $--select-dropdown-padding: 6px 0 !default;
 $--select-dropdown-empty-padding: 10px 0 !default;
-$--select-dropdown-border: solid 1px $--border-color-light !default;
+$--select-dropdown-border: solid 1px $--border-color-base !default;
 
 /* Alert
 -------------------------- */
@@ -615,7 +615,7 @@ $--datepicker-color: $--color-text-regular !default;
 $--datepicker-off-color: $--color-text-placeholder !default;
 $--datepicker-header-color: $--color-text-regular !default;
 $--datepicker-icon-color: $--color-text-primary !default;
-$--datepicker-border-color: $--disabled-border-base !default;
+$--datepicker-border-color: $--border-color-base !default;
 $--datepicker-inner-border-color: #e4e4e4 !default;
 $--datepicker-inrange-color: $--border-color-extra-light !default;
 $--datepicker-inrange-hover-color: $--border-color-extra-light !default;

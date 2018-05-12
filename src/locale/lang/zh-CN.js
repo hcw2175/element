@@ -88,7 +88,7 @@ export default {
       continue: '继续上传'
     },
     table: {
-      emptyText: '暂无数据',
+      emptyText: '夹一页安静，留一片空白',
       confirmFilter: '筛选',
       resetFilter: '重置',
       clearFilter: '全部',

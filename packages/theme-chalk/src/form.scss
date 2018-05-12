@@ -135,12 +135,14 @@
     & .el-textarea__inner {
       &, &:focus {
         border-color: $--color-danger;
+        box-shadow: 0 0 0 0.2rem rgba(227, 69, 81, .25);
       }
     }
     & .el-input-group__append,
     & .el-input-group__prepend {
       & .el-input__inner {
         border-color: transparent;
+        box-shadow: 0 0 0 0.2rem rgba(227, 69, 81, .25);
       }
     }
     .el-input__validateIcon {

@@ -107,7 +107,7 @@
   }
 
   th, td {
-    padding: 8px 0;
+    padding: 5px 0;
     min-width: 0;
     box-sizing: border-box;
     text-overflow: ellipsis;
@@ -140,7 +140,10 @@
     }
   }
   th{
-    padding: 10px 0;
+    padding: 8px 0;
+  }
+  td{
+    font-size: 13px;
   }
 
   /*@include m(medium) {
@@ -158,9 +161,9 @@
 
   @include m(mini) {
     font-size: 12px;
-    th, td {
+    /*th, td {
       padding: 6px 0;
-    }
+    }*/
   }
 
   tr {

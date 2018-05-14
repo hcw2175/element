@@ -12,7 +12,7 @@ $--color-transition-base: color .2s cubic-bezier(.645,.045,.355,1) !default;
 /* Colors
 -------------------------- */
 $--color-white: #fff !default;
-$--color-black: #444 !default;
+$--color-black: #333 !default;
 
 $--color-primary: #009FF2 !default;
 $--color-primary-light-1: mix($--color-white, $--color-primary, 10%) !default; /* 53a8ff */
@@ -40,7 +40,8 @@ $--color-warning-lighter: mix($--color-white, $--color-warning, 90%) !default;
 $--color-danger-lighter: mix($--color-white, $--color-danger, 90%) !default;
 $--color-info-lighter: mix($--color-white, $--color-info, 90%) !default;
 
-$--color-text-primary: #333 !default;
+$--color-text-title: #333 !default;
+$--color-text-primary: #444 !default;
 $--color-text-regular: #888 !default;
 $--color-text-secondary: #bbbec4 !default;
 $--color-text-placeholder: #bbbec4 !default;
@@ -471,7 +472,7 @@ $--dialog-close-hover-color: $--color-primary !default;
 $--dialog-title-font-size: $--font-size-large !default;
 $--dialog-font-size: 14px !default;
 $--dialog-line-height: $--font-line-height-primary !default;
-$--dialog-padding-primary: 20px !default;
+$--dialog-padding-primary: 15px !default;
 
 /* Table
 -------------------------- */
@@ -492,7 +493,7 @@ $--pagination-fill: $--color-white !default;
 $--pagination-color: $--color-text-primary !default;
 $--pagination-border-radius: 3px !default;
 $--pagination-button-color: $--color-text-primary !default;
-$--pagination-button-width: 35.5px !default;
+$--pagination-button-width: 30px !default;
 $--pagination-button-height: 28px !default;
 $--pagination-button-disabled-color: $--color-text-placeholder !default;
 $--pagination-button-disabled-fill: $--color-white !default;

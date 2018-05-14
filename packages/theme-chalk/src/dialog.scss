@@ -31,8 +31,8 @@
   }
 
   @include e(header) {
-    padding: $--dialog-padding-primary;
-    padding-bottom: 10px;
+    padding: 12px 15px;
+    border-bottom: 1px solid $--border-color-base;
   }
 
   @include e(headerbtn) {
@@ -58,16 +58,14 @@
   }
 
   @include e(title) {
-    line-height: $--dialog-line-height;
-    font-size: $--dialog-title-font-size;
-    color: $--color-text-primary;
-    font-weight: $--font-weight-primary;
+    font-size: 16px;
+    color: $--color-text-title;
+    font-weight: bold;
   }
 
   @include e(body) {
-    padding: 30px 20px;
-    color: $--color-text-regular;
-    font-size: $--dialog-font-size;
+    padding: 15px;
+    color: $--color-text-primary;
   }
 
   @include e(footer) {

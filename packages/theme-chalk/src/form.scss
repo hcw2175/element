@@ -36,7 +36,7 @@
   }
 }
 @include b(form-item) {
-  margin-bottom: 22px;
+  margin-bottom: 15px;
   @include utils-clearfix;
 
   & .el-form-item {
@@ -105,21 +105,22 @@
     }
   }
   @include e(error) {
-    color: $--color-danger;
+    color: $--color-danger !important;
     font-size: 12px;
     line-height: 1;
-    padding-top: 4px;
-    position: absolute;
+    padding: 0;
+    margin: 5px 0 0 0;
+    /*position: absolute;
     top: 100%;
-    left: 0;
+    left: 0;*/
 
-    @include m(inline) {
+    /*@include m(inline) {
       position: relative;
       top: auto;
       left: auto;
       display: inline-block;
       margin-left: 10px;
-    }
+    }*/
   }
 
   @include when(required) {

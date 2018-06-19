@@ -150,6 +150,7 @@
       :label="item.label"
       :value="item.value">
     </el-option>
+    <div slot='append'>￥</div>
   </el-select>
 </template>
 

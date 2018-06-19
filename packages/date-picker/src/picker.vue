@@ -30,6 +30,9 @@
       :class="[showClose ? '' + clearIcon : '']"
       v-if="haveTrigger">
     </i>
+    <template slot="append" v-if="$slots.append">
+      <slot name="append"></slot>
+    </template>
   </el-input>
   <div
     class="el-date-editor el-range-editor el-input__inner"

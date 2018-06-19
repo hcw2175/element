@@ -141,6 +141,9 @@
     }
     & .el-input-group__append,
     & .el-input-group__prepend {
+      border-color: transparent;
+      box-shadow: 0 0 0 0.2rem rgba(227, 69, 81, .25);
+
       & .el-input__inner {
         border-color: transparent;
         box-shadow: 0 0 0 0.2rem rgba(227, 69, 81, .25);

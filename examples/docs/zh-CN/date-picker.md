@@ -129,6 +129,7 @@
       v-model="value1"
       type="date"
       placeholder="选择日期">
+      <div slot='append'>￥</div>
     </el-date-picker>
   </div>
   <div class="block">

@@ -99,6 +99,9 @@
        :class="['el-select__caret', 'el-input__icon', 'el-icon-' + iconClass]"
        @click="handleIconClick"
       ></i>
+      <template slot="append" v-if="$slots.append">
+        <slot name="append"></slot>
+      </template>
     </el-input>
     <transition
       name="el-zoom-in-top"

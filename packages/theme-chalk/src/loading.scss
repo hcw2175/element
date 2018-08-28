@@ -14,7 +14,7 @@
 @include b(loading-mask) {
   position: absolute;
   z-index: 2000;
-  background-color: rgba(255, 255, 255, .9);
+  background-color: transparent;
   margin: 0;
   top: 0;
   right: 0;
@@ -44,7 +44,7 @@
   position: absolute;
 
   .el-loading-text {
-    color: $--color-primary;
+    color: $--color-white;
     margin: 3px 0;
     font-size: 14px;
   }
@@ -60,12 +60,20 @@
     stroke-dasharray: 90, 150;
     stroke-dashoffset: 0;
     stroke-width: 2;
-    stroke: $--color-primary;
+    stroke: $--color-white;
     stroke-linecap: round;
   }
 
   i {
-    color: $--color-primary;
+    color: $--color-white;
+  }
+
+  .el-loading-spinner__default,
+  .el-loading-spinner__customer {
+    display: inline-block;
+    padding: 25px;
+    background-color: rgba(0,0,0,.5);
+    color: #fff;
   }
 }
 

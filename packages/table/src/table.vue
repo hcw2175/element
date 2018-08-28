@@ -52,9 +52,9 @@
         :style="{
           width: bodyWidth
         }">
-        <span class="el-table__empty-text">
+        <div class="el-table__empty-text">
           <slot name="empty">{{ emptyText || t('el.table.emptyText') }}</slot>
-        </span>
+        </div>
       </div>
       <div
         v-if="$slots.append"

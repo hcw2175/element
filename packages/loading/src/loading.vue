@@ -6,15 +6,17 @@
       :style="{ backgroundColor: background || '' }"
       :class="[customClass, { 'is-fullscreen': fullscreen }]">
       <div class="el-loading-spinner">
-        <svg v-if="!spinner" class="circular" viewBox="25 25 50 50">
-          <circle class="path" cx="50" cy="50" r="20" fill="none"/>
-        </svg>
-        <div v-else>
-          <i :class="spinner" v-if="!customSpinner"></i>
-          <div v-else v-html="customSpinner"></div>
+        <div class="el-loading-spinner__customer" v-if="customSpinner">
+          <div v-html="customSpinner"></div>
+          <div class="el-loading-text" v-if="text">{{ text }}</div>
         </div>
-        <i v-else :class="spinner"></i>
-        <p v-if="text" class="el-loading-text">{{ text }}</p>
+        <div class="el-loading-spinner__default" v-else>
+          <svg v-if="!spinner" class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none"/>
+          </svg>
+          <i :class="spinner" v-else></i>
+          <div v-if="text" class="el-loading-text">{{ text }}</div>
+        </div>
       </div>
     </div>
   </transition>

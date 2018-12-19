@@ -13,6 +13,11 @@
   position: relative;
   width: 100%;
 
+  .el-select__tags
+    >span {
+      display: contents;
+    }
+
   &:hover {
     .el-input__inner {
       border-color: $--select-border-color-hover;
@@ -34,7 +39,6 @@
       font-size: $--select-input-font-size;
       transition: transform .3s;
       transform: rotateZ(180deg);
-      line-height: 16px;
       cursor: pointer;
 
       @include when(reverse) {

@@ -33,7 +33,7 @@
     &:focus {
       outline: none;
       border-color: $--input-focus-border;
-      box-shadow: 0 0 0 0.2rem rgba(50,168,238,.25);
+      //box-shadow: 0 0 0 0.2rem rgba(50,168,238,.25);
     }
   }
 
@@ -98,7 +98,7 @@
     &:focus {
       outline: none;
       border-color: $--input-focus-border;
-      box-shadow: 0 0 0 0.2rem rgba(50,168,238,.25);
+      //box-shadow: 0 0 0 0.2rem rgba(50,168,238,.25);
     }
 
     @include when(invalid) {
@@ -176,7 +176,7 @@
   }
 
   @include when(focused) {
-    box-shadow: 0 0 0 0.2rem rgba(50,168,238,.25);
+    //box-shadow: 0 0 0 0.2rem rgba(50,168,238,.25);
   }
 
   @include m(suffix) {
@@ -257,7 +257,7 @@
     &:focus {
       outline: none;
       border-color: $--input-focus-border;
-      box-shadow: 0 0 0 0.2rem rgba(50,168,238,.25);
+      //box-shadow: 0 0 0 0.2rem rgba(50,168,238,.25);
     }
 
     .el-select,
